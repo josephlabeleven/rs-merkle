@@ -118,7 +118,7 @@ impl<T: Hasher> MerkleTree<T> {
     ///
     /// assert_eq!(
     ///     root,
-    ///     "7075152d03a5cd92104887b476862778ec0c87be5c2fa1c0a90f87c49fad6eff".to_string()
+    ///     "6d73665531cee2476eaad7e4f0bc46e2fa3f754e384a23dd4a19381b7889375e".to_string()
     /// );
     /// # Ok(())
     /// # }
@@ -270,7 +270,7 @@ impl<T: Hasher> MerkleTree<T> {
     ///
     /// assert_eq!(
     ///     merkle_tree.root_hex(),
-    ///     Some("e5a01fee14e0ed5c48714f22180f25ad8365b53f9779f79dc4a3d7e93963f94a".to_string())
+    ///     Some("41459b448191dd4b339a003e8e49ec9bc024532488cc17b1cd1d1d8824cc1677".to_string())
     /// );
     /// # Ok(())
     /// # }
@@ -305,7 +305,7 @@ impl<T: Hasher> MerkleTree<T> {
     /// merkle_tree.commit();
     /// assert_eq!(
     ///     merkle_tree.root_hex(),
-    ///     Some("e5a01fee14e0ed5c48714f22180f25ad8365b53f9779f79dc4a3d7e93963f94a".to_string())
+    ///     Some("41459b448191dd4b339a003e8e49ec9bc024532488cc17b1cd1d1d8824cc1677".to_string())
     /// );
     /// # Ok(())
     /// # }
@@ -337,7 +337,7 @@ impl<T: Hasher> MerkleTree<T> {
     /// merkle_tree.insert(Sha256::hash("b".as_bytes())).commit();
     /// assert_eq!(
     ///     merkle_tree.root_hex(),
-    ///     Some("e5a01fee14e0ed5c48714f22180f25ad8365b53f9779f79dc4a3d7e93963f94a".to_string())
+    ///     Some("41459b448191dd4b339a003e8e49ec9bc024532488cc17b1cd1d1d8824cc1677".to_string())
     /// );
     ///
     /// // Rollback to the previous state
@@ -393,13 +393,13 @@ impl<T: Hasher> MerkleTree<T> {
     /// );
     /// assert_eq!(
     ///      merkle_tree.uncommitted_root_hex(),
-    ///      Some("e5a01fee14e0ed5c48714f22180f25ad8365b53f9779f79dc4a3d7e93963f94a".to_string())
+    ///      Some("41459b448191dd4b339a003e8e49ec9bc024532488cc17b1cd1d1d8824cc1677".to_string())
     /// );
     ///
     /// merkle_tree.commit();
     /// assert_eq!(
     ///     merkle_tree.root_hex(),
-    ///     Some("e5a01fee14e0ed5c48714f22180f25ad8365b53f9779f79dc4a3d7e93963f94a".to_string())
+    ///     Some("41459b448191dd4b339a003e8e49ec9bc024532488cc17b1cd1d1d8824cc1677".to_string())
     /// );
     /// # Ok(())
     /// # }

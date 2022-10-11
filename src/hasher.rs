@@ -57,12 +57,19 @@ pub trait Hasher: Clone {
     /// [`MerkleTree`]: crate::MerkleTree
     /// [`PartialTree`]: crate::PartialTree
     fn concat_and_hash(left: &Self::Hash, right: Option<&Self::Hash>) -> Self::Hash {
-        let mut concatenated: Vec<u8> = (*left).into();
+        let mut concatenated: Vec<u8> = vec![0x01];
+        let mut left_node_clone: Vec<u8> = (*left).into();
 
         match right {
             Some(right_node) => {
                 let mut right_node_clone: Vec<u8> = (*right_node).into();
-                concatenated.append(&mut right_node_clone);
+                if left_node_clone > right_node_clone {
+                    concatenated.append(&mut right_node_clone);
+                    concatenated.append(&mut left_node_clone);
+                } else {
+                    concatenated.append(&mut left_node_clone);
+                    concatenated.append(&mut right_node_clone);
+                }
                 Self::hash(&concatenated)
             }
             None => *left,

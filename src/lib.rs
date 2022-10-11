@@ -78,7 +78,7 @@
 //! assert_eq!(merkle_tree.root(), None);
 //! assert_eq!(
 //!     merkle_tree.uncommitted_root_hex(),
-//!     Some("1f7379539707bcaea00564168d1d4d626b09b73f8a2a365234c62d763f854da2".to_string())
+//!     Some("b64b8dca94800a904f5028bad7179465ae010916e2a6889844265a9bcac10b9c".to_string())
 //! );
 //!
 //! // Committing the changes
@@ -87,7 +87,7 @@
 //! // Changes applied to the tree after the commit, and there's no uncommitted changes anymore
 //! assert_eq!(
 //!     merkle_tree.root_hex(),
-//!     Some("1f7379539707bcaea00564168d1d4d626b09b73f8a2a365234c62d763f854da2".to_string())
+//!     Some("b64b8dca94800a904f5028bad7179465ae010916e2a6889844265a9bcac10b9c".to_string())
 //! );
 //! assert_eq!(merkle_tree.uncommitted_root_hex(), None);
 //!
@@ -97,7 +97,7 @@
 //! // Root was updated after insertion
 //! assert_eq!(
 //!     merkle_tree.root_hex(),
-//!     Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+//!     Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
 //! );
 //!
 //! // Adding some more leaves
@@ -107,21 +107,21 @@
 //! ].as_mut()).commit();
 //! assert_eq!(
 //!     merkle_tree.root_hex(),
-//!     Some("09b6890b23e32e607f0e5f670ab224e36af8f6599cbe88b468f4b0f761802dd6".to_string())
+//!     Some("3a31b5c8246f3a0e0195a84d83ab6525b9c1af4848692c649e063bafc89a94e2".to_string())
 //! );
 //!
 //! // Rolling back to the previous state
 //! merkle_tree.rollback();
 //! assert_eq!(
 //!     merkle_tree.root_hex(),
-//!     Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+//!     Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
 //! );
 //!
 //! // We can rollback multiple times as well
 //! merkle_tree.rollback();
 //! assert_eq!(
 //!     merkle_tree.root_hex(),
-//!     Some("1f7379539707bcaea00564168d1d4d626b09b73f8a2a365234c62d763f854da2".to_string())
+//!     Some("b64b8dca94800a904f5028bad7179465ae010916e2a6889844265a9bcac10b9c".to_string())
 //! );
 //! # Ok(())
 //! # }

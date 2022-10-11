@@ -43,7 +43,7 @@ pub mod proof {
         let expected_proof_hashes = [
             "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6",
             "252f10c83610ebca1a059c0bae8255eba2f95be4d1d7bcfa89d7248a82d9f111",
-            "e5a01fee14e0ed5c48714f22180f25ad8365b53f9779f79dc4a3d7e93963f94a",
+            "41459b448191dd4b339a003e8e49ec9bc024532488cc17b1cd1d1d8824cc1677",
         ];
 
         let merkle_tree = MerkleTree::<Sha256>::from_leaves(&test_data.leaf_hashes);
@@ -75,7 +75,7 @@ pub mod commit {
         assert_eq!(merkle_tree2.root_hex(), Some(expected_root.to_string()));
         assert_eq!(root, Some(expected_root.to_string()));
 
-        let expected_root = "e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034";
+        let expected_root = "8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e";
         let leaf = Sha256::hash("g".as_bytes());
         merkle_tree.insert(leaf);
 
@@ -94,11 +94,11 @@ pub mod commit {
 
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+            Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
         );
         assert_eq!(
             merkle_tree.uncommitted_root_hex(),
-            Some("09b6890b23e32e607f0e5f670ab224e36af8f6599cbe88b468f4b0f761802dd6".to_string())
+            Some("3a31b5c8246f3a0e0195a84d83ab6525b9c1af4848692c649e063bafc89a94e2".to_string())
         );
 
         merkle_tree.commit();
@@ -110,7 +110,7 @@ pub mod commit {
         // Check that the commit is applied correctly
         assert_eq!(
             reconstructed_tree.root_hex(),
-            Some("09b6890b23e32e607f0e5f670ab224e36af8f6599cbe88b468f4b0f761802dd6".to_string())
+            Some("3a31b5c8246f3a0e0195a84d83ab6525b9c1af4848692c649e063bafc89a94e2".to_string())
         );
     }
 
@@ -132,7 +132,7 @@ pub mod commit {
         assert_eq!(merkle_tree.root(), None);
         assert_eq!(
             merkle_tree.uncommitted_root_hex(),
-            Some("1f7379539707bcaea00564168d1d4d626b09b73f8a2a365234c62d763f854da2".to_string())
+            Some("b64b8dca94800a904f5028bad7179465ae010916e2a6889844265a9bcac10b9c".to_string())
         );
 
         // Committing the changes
@@ -141,7 +141,7 @@ pub mod commit {
         // Changes applied to the tree after commit, and since there's no new staged changes
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("1f7379539707bcaea00564168d1d4d626b09b73f8a2a365234c62d763f854da2".to_string())
+            Some("b64b8dca94800a904f5028bad7179465ae010916e2a6889844265a9bcac10b9c".to_string())
         );
         assert_eq!(merkle_tree.uncommitted_root_hex(), None);
 
@@ -149,14 +149,14 @@ pub mod commit {
         merkle_tree.insert(Sha256::hash("g".as_bytes()));
         assert_eq!(
             merkle_tree.uncommitted_root_hex(),
-            Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+            Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
         );
         merkle_tree.commit();
 
         // Root was updated after insertion
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+            Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
         );
 
         // Adding some more leaves
@@ -166,21 +166,21 @@ pub mod commit {
         merkle_tree.commit();
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("09b6890b23e32e607f0e5f670ab224e36af8f6599cbe88b468f4b0f761802dd6".to_string())
+            Some("3a31b5c8246f3a0e0195a84d83ab6525b9c1af4848692c649e063bafc89a94e2".to_string())
         );
 
         // Rolling back to the previous state
         merkle_tree.rollback();
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+            Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
         );
 
         // We can rollback multiple times as well
         merkle_tree.rollback();
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("1f7379539707bcaea00564168d1d4d626b09b73f8a2a365234c62d763f854da2".to_string())
+            Some("b64b8dca94800a904f5028bad7179465ae010916e2a6889844265a9bcac10b9c".to_string())
         );
     }
 }
@@ -206,7 +206,7 @@ pub mod rollback {
 
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("1f7379539707bcaea00564168d1d4d626b09b73f8a2a365234c62d763f854da2".to_string())
+            Some("b64b8dca94800a904f5028bad7179465ae010916e2a6889844265a9bcac10b9c".to_string())
         );
 
         // Adding a new leaf
@@ -215,7 +215,7 @@ pub mod rollback {
         // Uncommitted root must reflect the insert
         assert_eq!(
             merkle_tree.uncommitted_root_hex(),
-            Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+            Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
         );
 
         merkle_tree.commit();
@@ -223,7 +223,7 @@ pub mod rollback {
         // After calling commit, uncommitted root will become committed
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+            Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
         );
 
         // Adding some more leaves
@@ -233,11 +233,11 @@ pub mod rollback {
         // Checking that the uncommitted root has changed, but the committed one hasn't
         assert_eq!(
             merkle_tree.uncommitted_root_hex(),
-            Some("09b6890b23e32e607f0e5f670ab224e36af8f6599cbe88b468f4b0f761802dd6".to_string())
+            Some("3a31b5c8246f3a0e0195a84d83ab6525b9c1af4848692c649e063bafc89a94e2".to_string())
         );
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+            Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
         );
 
         merkle_tree.commit();
@@ -245,7 +245,7 @@ pub mod rollback {
         // Checking committed changes again
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("09b6890b23e32e607f0e5f670ab224e36af8f6599cbe88b468f4b0f761802dd6".to_string())
+            Some("3a31b5c8246f3a0e0195a84d83ab6525b9c1af4848692c649e063bafc89a94e2".to_string())
         );
 
         merkle_tree.rollback();
@@ -253,7 +253,7 @@ pub mod rollback {
         // Check that we rolled one commit back
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("e2a80e0e872a6c6eaed37b4c1f220e1935004805585b5f99617e48e9c8fe4034".to_string())
+            Some("8610e2ef0164a3adc657920cb5c7914063c7049d82d215f7f194e31ba8ccf59e".to_string())
         );
 
         merkle_tree.rollback();
@@ -261,7 +261,7 @@ pub mod rollback {
         // Rolling back to the state after the very first commit
         assert_eq!(
             merkle_tree.root_hex(),
-            Some("1f7379539707bcaea00564168d1d4d626b09b73f8a2a365234c62d763f854da2".to_string())
+            Some("b64b8dca94800a904f5028bad7179465ae010916e2a6889844265a9bcac10b9c".to_string())
         );
     }
 }
